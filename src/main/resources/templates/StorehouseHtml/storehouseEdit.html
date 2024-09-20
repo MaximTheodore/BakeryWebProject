@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit</title>
+</head>
+<body>
+<h1>Изменение склада</h1>
+
+<form th:action="@{/storehouse/update}" th:object="${storehouse}" method="post">
+    <input type="hidden" th:field="*{id}" />
+    <label>Номер полки: </label>
+    <input type="number" th:field="*{shelfNumber}" /><br>
+    <label>Общая цена: </label>
+    <input type="text" th:field="*{totalPrice}" /><br>
+
+    <label>Ингредиенты: </label>
+    <select th:field="*{ingredients}" multiple>
+        <option th:each="ingredient : ${allIngredients}" th:value="${ingredient.id}" th:text="${ingredient.name}"></option>
+    </select><br>
+
+    <button type="submit">Изменить</button>
+</form>
+
+<a th:href="@{/storehouse}">Вернуться к списку</a>
+
+</body>
+</html>

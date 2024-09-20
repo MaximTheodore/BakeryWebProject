@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category List</title>
+</head>
+<body>
+<div th:insert="blocks/header"></div>
+
+
+<h1>Категории</h1>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Название</th>
+        <th>Ингредиенты</th>
+        <th>Действия</th>
+    </tr>
+    <tr th:each="category : ${categories}">
+        <td th:text="${category.id}"></td>
+        <td th:text="${category.name}"></td>
+        <td>
+            <a th:href="@{/category/{id}/ingredients(id=${category.id})}">Подробнее...</a>
+        </td>
+        <td>
+            <a th:href="@{/category/edit/{id}(id=${category.id})}">Изменить</a> |
+            <a th:href="@{/category/delete/{id}(id=${category.id})}"  onclick="return confirm('Вы уверены, что хотите удалить?');">Удалить</a>
+        </td>
+    </tr>
+</table>
+
+<h2>Добавить новую категорию</h2>
+<form th:action="@{/category}" th:object="${category}" method="post">
+    <label for="name">Название:</label>
+    <input type="text" id="name" th:field="*{name}" />
+    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+    <button type="submit">Добавить</button>
+</form>
+</body>
+</html>

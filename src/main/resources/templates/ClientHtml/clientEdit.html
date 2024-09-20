@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать клиента</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+</head>
+<body>
+<h1>Редактировать клиента</h1>
+
+<form th:action="@{/client/update}" th:object="${client}" method="post">
+    <input type="hidden" th:field="*{id}" />
+    <div>
+        <label for="name">Имя:</label>
+        <input type="text" id="name" th:field="*{name}" />
+        <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Ошибка в имени</div>
+    </div>
+    <div>
+        <label for="phoneNumber">Телефон:</label>
+        <input type="text" id="phoneNumber" th:field="*{phoneNumber}" />
+        <div th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}">Ошибка в телефоне</div>
+    </div>
+    <div>
+        <button type="submit">Сохранить</button>
+        <a th:href="@{/client}">Отмена</a>
+    </div>
+</form>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit</title>
+</head>
+<body>
+<h1>Редактирование изделие</h1>
+
+<form th:action="@{/recipe/update}" th:object="${recipe}" method="post">
+    <input type="hidden" th:field="*{id}" />
+    <label>Описание: </label>
+    <textarea th:field="*{description}"></textarea><br>
+    <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
+
+    <h3>Изменить ингредиенты</h3>
+    <select th:field="*{ingredients}" id="suppliers" multiple required>
+        <option th:each="ingredient : ${ingredients}" th:value="${ingredient.id}" th:text="${ingredient.name}"></option>
+    </select>
+    <button type="submit">Изменить</button>
+</form>
+
+<a th:href="@{/recipe}">Назад</a>
+
+</body>
+</html>

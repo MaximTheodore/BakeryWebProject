@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit</title>
+</head>
+<body>
+<h1>Изменение категории</h1>
+<form th:action="@{/category/update}" th:object="${category}" method="post">
+    <input type="hidden" th:field="*{id}" />
+    <label for="name">Название категории:</label>
+    <input type="text" id="name" th:field="*{name}" />
+    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+    <button type="submit">Изменить категорию</button>
+</form>
+
+<a th:href="@{/category}">Назад</a>
+</body>
+</html>

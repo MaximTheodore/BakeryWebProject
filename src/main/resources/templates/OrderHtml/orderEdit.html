@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Редактирование заказа</title>
+</head>
+<body>
+<h1>Редактировать заказ</h1>
+<form th:action="@{/order/update}" th:object="${order}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+
+    <label for="orderDate">Дата заказа:</label>
+    <input type="date" id="orderDate" th:field="*{orderDate}" required/>
+    <div th:if="${#fields.hasErrors('orderDate')}" th:errors="*{orderDate}" ></div>
+
+
+    <label for="totalCost">Стоимость заказа:</label>
+    <input type="number" id="totalCost" th:field="*{totalСost}" required/>
+
+
+
+
+    <label for="readness">Готовность:</label>
+    <select id="readness" th:field="*{readness}">
+        <option th:each="status : ${T(com.example.bakery.model.ReadinessModel).values()}"
+                th:value="${status}" th:text="${status}"></option>
+    </select>
+
+    <label for="products">Продукты:</label>
+    <select id="products" th:field="*{products}" multiple>
+        <option th:each="product : ${products}" th:value="${product.id}" th:text="${product.name}"></option>
+    </select>
+    <div th:if="${#fields.hasErrors('products')}" th:errors="*{products}"></div>
+
+    <label for="client">Клиент:</label>
+    <select id="client" th:field="*{client.id}" required>
+        <option th:each="client : ${clients}" th:value="${client.id}" th:text="${client.name}"></option>
+    </select>
+    <div th:if="${#fields.hasErrors('client.id')}" th:errors="*{client.id}"></div>
+
+
+    <button type="submit">Сохранить</button>
+</form>
+<a th:href="@{/order}">Вернуться к списку</a>
+</body>
+</html>

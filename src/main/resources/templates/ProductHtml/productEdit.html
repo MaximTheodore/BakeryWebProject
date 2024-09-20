@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать изделие</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+</head>
+<body>
+<h1>Редактировать изделие</h1>
+
+<form th:action="@{/product/update}" th:object="${product}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+    <div>
+        <label for="name">Название:</label>
+        <input type="text" id="name" th:field="*{name}" required/>
+        <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+    </div>
+    <div>
+        <label for="price">Цена:</label>
+        <input type="number" step="0.01" id="price" th:field="*{price}" required/>
+        <div th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+    </div>
+
+    <div>
+        <label for="recipe">Рецепт:</label>
+        <select id="recipe" th:field="*{recipe.id}" required>
+            <option th:each="recipe : ${recipes}" th:value="${recipe.id}" th:text="${recipe.description}"
+                    th:selected="${recipe.id == product.recipe.id}"></option>
+        </select>
+        <div th:if="${#fields.hasErrors('recipe')}" th:errors="*{recipe}"></div>
+    </div>
+    <button type="submit">Сохранить изменения</button>
+    <a th:href="@{/product}">Отмена</a>
+</form>
+
+</body>
+</html>
