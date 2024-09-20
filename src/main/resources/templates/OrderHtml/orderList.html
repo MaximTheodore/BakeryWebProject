@@ -60,11 +60,13 @@
         <td th:text="${order.totalСost}"></td>
         <td th:text="${order.readness}"></td>
         <td th:text="${order.client != null && order.client.name != null ? order.client.name : 'Клиент не выбран'}"></td>
-        <label for="products">Продукты:</label>
-        <select id="products" th:field="*{products}" multiple>
-            <option th:each="product : ${products}" th:value="${product.id}" th:text="${product.name}"></option>
-        </select>
-        <div th:if="${#fields.hasErrors('products')}" th:errors="*{products}"></div>
+        <td>
+            <select id="order.products" th:field="*{order.products}" multiple>
+                <option th:each="product : ${order.products}" th:value="${product.id}" th:text="${product.name}"></option>
+            </select>
+            <div th:if="${#fields.hasErrors('products')}" th:errors="*{products}"></div>
+        </td>
+        
 
 
         <td>
